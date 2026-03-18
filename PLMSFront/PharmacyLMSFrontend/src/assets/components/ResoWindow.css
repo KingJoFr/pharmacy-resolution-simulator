@@ -1,0 +1,33 @@
+.resoWindowContainer{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid black;
+}
+
+.rejectCode {
+   
+    border: 1px solid red;
+    padding: 2px;
+    margin: 2px;
+
+}
+.rejectMessage{
+    
+    
+    border: 1px solid red;
+    padding: 2px;
+    margin: 2px;
+}
+
+.PTContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+.submissionContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  
+}   
