@@ -1,3 +1,12 @@
+:root{
+  --global-container-radius: 10px;
+  --global-div-radius: 5px;
+}
+*{
+  border-radius:  var(--global-radius);
+
+}
+
 .App{
   display: grid;
   grid-template-rows: 1fr 4fr;
@@ -5,4 +14,6 @@
   place-items: center;
   height: 90vh;
   border: 1px solid red;
+  background-color: silver;
+  border-radius: 10px;
 }

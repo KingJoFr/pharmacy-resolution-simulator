@@ -1,10 +1,10 @@
 
-import useState from 'react';
+import {useState} from 'react';
 import './App.css';
 import Header from './assets/components/Header';
 import ResoWindow from './assets/components/ResoWindow';
 
-const [rxState, setRxState] = useState<RxStatus>({ status: 'Ready' });
+
 
 type RxStatus = 
   | { status: 'Accepted'; message: string }
@@ -26,6 +26,11 @@ type RxStatus =
   switchToCash = 'switchToCash'
 }*/
 
+export type Insurance ={
+  name: string;
+  policy_number: string;
+}
+
 export type Scenario = {
   ID: string,
   Description: string,
@@ -33,10 +38,7 @@ export type Scenario = {
     name: string;
     birthdate: string;
     gender: string;
-    insurance: {
-      name: string;
-      policy_number: string;
-    }
+    insurance: Insurance[];
   },
   Medication: {
     name: string;
@@ -44,6 +46,8 @@ export type Scenario = {
     sig: string;
     quantity: number;
     days_supply: number;
+    fill_date: string;
+    provider: string;
   },
   Rejection: {
     code: string;
@@ -53,7 +57,7 @@ export type Scenario = {
   Hint: string;
 };
 
-const testScenario: Scenario = {
+const TestScenario1: Scenario = {
     "ID": "scenario_1",
     "Description": "bad_days_supply",
     "Patient": {
@@ -61,10 +65,16 @@ const testScenario: Scenario = {
         "birthdate": "1980-01-01",
         "gender": "Male",
         "insurance" : 
-            {
+            [
+              {
                 "name": "UHC",
                 "policy_number": "123456789"
-            }
+              },
+              {
+                "name": "GRX",
+                "policy_number": "123456789"
+              }
+            ]
         
     },
     "Medication": {
@@ -72,7 +82,9 @@ const testScenario: Scenario = {
         "dosage": "10mg",
         "sig": "Take 1 tablet by mouth once daily",
         "quantity" : 90,
-        "days_supply": 90
+        "days_supply": 90,
+        "fill_date": "2024-06-01",
+        "provider": "Dr. Dolittle"
     },
     "Rejection": {
         "code" : "76",
@@ -86,19 +98,23 @@ const testScenario: Scenario = {
   switch (action.type) {
     case '':  
 */
-
+export type PtAge ={
+  age: number;
+}
 
 function App() {
-  
 
-  
+  const JohnAge: PtAge = {
+  age: 44
+  };
+  const [rxState, setRxState] = useState<RxStatus>({ status: 'Ready' });
 
   return (
     <>
-      <p>description:   {testScenario.Description}</p>
+      <p>description:   {TestScenario1.Description}</p>
       <div className="App">
         <Header />
-        <ResoWindow />
+        <ResoWindow testScenario={TestScenario1} />
       </div>
     </>
   )

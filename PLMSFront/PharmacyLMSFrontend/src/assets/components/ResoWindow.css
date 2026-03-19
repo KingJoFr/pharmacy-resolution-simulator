@@ -22,12 +22,17 @@
 }
 
 .PTContainer{
+    width: 90%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    border: 1px solid blue;
     
 }
 .submissionContainer{
     display: grid;
-    grid-template-columns: 1fr 1fr;
-  
+    border  : 1px solid green;
+}   
+
+.buttonContainer{
+    display: flex;
+    border: 1px solid purple;
 }   
