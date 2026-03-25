@@ -1,10 +1,6 @@
-import { ChangeEvent } from 'react';
-import type { Scenario } from '../../App';
+import { useState, type ChangeEvent } from 'react';
+import type { Scenario } from './CustomTypes.tsx';
 
-interface Option {
-    label: string;
-    value: string;
-}
 
 interface DropdownProps {
     options: Scenario;
@@ -15,13 +11,16 @@ type Ins = {
     policy_number: string;
 }
 
-const InsDropDown = ({ options, onChange }: DropdownProps) => {
+export const InsDropDown = ({ options, onChange }: DropdownProps) => {
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        onChange(event.target.value);
+        setSelectedIns(event.target.value);
     };
 
+    const [selectedIns, setSelectedIns] = useState<string>(options.Patient.insurance[0].name);
+
     return (
-        <select onChange={handleChange}>
+        <select value={selectedIns}
+                onChange={handleChange}>
             {options.Patient.insurance.map((ins: Ins) => (
                 <option key={ins.policy_number} value={ins.policy_number}>
                     {ins.name} ({ins.policy_number});
@@ -33,3 +32,5 @@ const InsDropDown = ({ options, onChange }: DropdownProps) => {
 }
 
 export default InsDropDown;
+
+
