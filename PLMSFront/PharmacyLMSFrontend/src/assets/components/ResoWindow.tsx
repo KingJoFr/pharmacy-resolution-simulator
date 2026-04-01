@@ -1,63 +1,54 @@
 import './ResoWindow.css';
-import type { Scenario, AnswerState } from './CustomTypes.tsx';
+import type { Scenario } from './CustomTypes.tsx';
 import {InsDropDown} from './InsDropDown';
-import { InpBox } from './InpBox';
-import { useState, useEffect } from 'react';
-import type { ChangeEvent } from 'react';
+import { type FormEvent, type Dispatch, useState } from 'react';
+import type { AnswerState } from './CustomTypes.tsx';
 
 interface ResoWindowProps {
     testScenario: Scenario;
     answerState: AnswerState;
-    setAnswer: (answer: AnswerState) => void;
-    inputValue: string | number;
-    setInputValue: (value: string | number) => void;
-    onChange: (event: ChangeEvent<HTMLInputElement>, label: string) => void;
+    setAnswer: Dispatch<React.SetStateAction<AnswerState>>;
+    
+    
 }
 
 
-const ResoWindow = ({testScenario,inputValue, setInputValue, answerState, setAnswer, onChange}: ResoWindowProps) => {
-     const handleInputChange = (event: ChangeEvent<HTMLInputElement>, label: string) => {
-        setInputValue(event.target.value);
-        
-        setAnswer({...answerState,[label]: inputValue});
+const ResoWindow = ({testScenario, answerState, setAnswer}: ResoWindowProps) => {
+    //const [daysSupplyValue, setDaysSupplyValue] = useState<number>(testScenario.Medication.days_supply);
+    const insOptions = testScenario.Patient.insurance;
+    const [selectedIns, setSelectedIns] = useState<string>(insOptions[0].name);
+    
+
+    const handleForm = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        for (const [key, value] of formData.entries()) {
+            console.log("formdata",key , value);
+        }
+        const quantity = Number(formData.get("quantity")) as number;
+        const fillDate = formData.get("fillDate") as string;
+        const insurance = selectedIns as string;
+        console.log("insurance", insurance === testScenario.Solution.insurance);
+        console.log("quantity", quantity === testScenario.Solution.quantity);
+        console.log("fillDate", fillDate );
+        //setAnswer({...answerState, quantity: quantity, fillDate: fillDate, insurance: insurance});
+            if(quantity === testScenario.Solution.quantity &&
+               fillDate === testScenario.Solution.fill_date &&
+               insurance === testScenario.Solution.insurance)
+            {
+             alert("Correct! Rx Accepted");
+            } else {
+             alert("Incorrect. Be sure to only change one input at a time and refer to the hint if needed.");
+           }
+         
+         
         
 
     };
-    //Each input updates the answerState then I compare the answer state to the solution.
-        
-    const [daysSupplyValue, setDaysSupplyValue] = useState<number>(testScenario.Medication.days_supply);
-    const handleSubmit = () => {
-        setAnswer({...answerState,"quantity": inputValue});
-        console.log(" answerState in handleSubmit", answerState);
-        //logic to determine if answer is correct and update rxState accordingly
-        const dsupply : number = (parseInt(answerState.quantity) == testScenario.Solution.quantity) ? testScenario.Solution.days_supply : testScenario.Medication.days_supply;
-        setDaysSupplyValue(dsupply);
-        
-        if(parseInt(answerState.quantity) === testScenario.Solution.quantity &&
-           answerState.fillDate === testScenario.Solution.fill_date &&
-           answerState.insurance === testScenario.Solution.insurance)
-           {
-            alert("Correct! Rx Accepted");
-        } else {
-            alert("Incorrect. Be sure to only change one input at a time and refer to the hint if needed.");
-        }
-    }
+ 
     const handleHint = () => {
         alert(testScenario.Hint);
     }
-   
-
-    //onChange function to tur90n change the answerState in app.tsx.
-    
-
-   useEffect(() => {
-          setAnswer({...answerState,"quantity": inputValue});
-          console.log(" answerState in useeffect", answerState);
-        console.log("solution", testScenario.Solution);
-         
-        }, [inputValue]);
-
-
     return(
     <>
         <div className="resoWindowContainer">
@@ -69,48 +60,53 @@ const ResoWindow = ({testScenario,inputValue, setInputValue, answerState, setAns
                 <p>Name: {testScenario.Patient.name}</p>
                 <p>Birthdate: {testScenario.Patient.birthdate}</p>
                 <p>Gender: {testScenario.Patient.gender}</p>
-                <InsDropDown options={testScenario} onChange={(value) => setAnswer({...answerState, insurance: value})} />
+               
                 
             </div>
             <div className="submissionContainer">
                 <p>medication: {testScenario.Medication.name}</p>
                 <p>dosage: {testScenario.Medication.dosage}</p>
                 <p>sig: {testScenario.Medication.sig}</p>
-
-               <label htmlFor="quantity">Quantity:  
-                <input  type="number"
-                        id="quantity"
-                        onChange={(event) => handleInputChange(event, "quantity")}
-                 />
-                 </label>
-                <label htmlFor="daysSupply">Days Supply: 
-                    <input type="number" 
-                           id="daysSupply" 
-                           value={daysSupplyValue} 
-                           readOnly={true}
-                           />
-                </label>
-                <label htmlFor="fillDate">Fill Date:
-                    <input 
-                        id="fillDate"
-                        value={testScenario.Medication.fill_date}
-                        type="text"
-                        readOnly={true}
-                        
-                />
-                </label>
-             
-                <p>provider: {testScenario.Medication.provider}</p>
+                <form onSubmit={handleForm}>
+                    <label htmlFor="quantity">Quantity:
+                        <input type="number" 
+                            id="quantity" 
+                            name="quantity"
+                            placeholder={testScenario.Medication.quantity.toString()}
+                            defaultValue={testScenario.Medication.quantity}
+                            />
+                    </label>
+                    <label htmlFor="daysSupply">Days Supply: 
+                        <input type="number" 
+                            id="daysSupply" 
+                            value={90} 
+                            readOnly={true}
+                            />
+                    </label>
+                    <label htmlFor="fillDate">Fill Date:
+                        <input 
+                            id="fillDate"
+                            name="fillDate"
+                            value={testScenario.Medication.fill_date}
+                            type="text"
+                            readOnly={true}
+                            
+                    />
+                    </label>
+                    <InsDropDown options={insOptions} selectedIns={selectedIns} handleInsuranceChange={setSelectedIns} />
+                    <div className="buttonContainer">
+                        <button type="submit" >submit</button>
+                        <button onClick={handleHint}>hint</button>
+                        <button>put on hold</button>
+                        <button>switch to cash</button>
+                    </div>
+                </form>
+                    <p>provider: {testScenario.Medication.provider}</p>
             </div>
         
             
         </div>
-        <div className="buttonContainer">
-                <button onClick={handleSubmit}>submit</button>
-                <button onClick={handleHint}>hint</button>
-                <button>put on hold</button>
-                <button>switch to cash</button>
-            </div>
+        
     </>
     );
 }

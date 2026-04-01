@@ -1,5 +1,5 @@
 export type AnswerState = {
-    quantity: number | string;
+    quantity: number;
     fillDate: string;
     insurance: string;
   
