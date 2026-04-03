@@ -13,7 +13,7 @@ import { TestScenario1 } from './scenarios.tsx';
    
 
 function App() {
-  const [inputValue, setInputValue] = useState<string|number>(TestScenario1.Medication.quantity);
+  //const [inputValue, setInputValue] = useState<string|number>(TestScenario1.Medication.quantity);
   
   const [formState, setFormState] = useState({
     quantity: TestScenario1.Medication.quantity,
@@ -32,8 +32,7 @@ function App() {
         <ResoWindow testScenario={TestScenario1} 
                     answerState={formState} 
                     setAnswer={setFormState} 
-                    inputValue={inputValue} 
-                    setInputValue={setInputValue}/>
+                    />
       </div>
     </>
   )

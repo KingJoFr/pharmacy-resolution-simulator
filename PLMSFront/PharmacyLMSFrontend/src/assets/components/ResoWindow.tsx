@@ -13,7 +13,7 @@ interface ResoWindowProps {
 }
 
 
-const ResoWindow = ({testScenario, answerState, setAnswer}: ResoWindowProps) => {
+const ResoWindow = ({testScenario }: ResoWindowProps) => {
     //const [daysSupplyValue, setDaysSupplyValue] = useState<number>(testScenario.Medication.days_supply);
     const insOptions = testScenario.Patient.insurance;
     const [selectedIns, setSelectedIns] = useState<string>(insOptions[0].name);
