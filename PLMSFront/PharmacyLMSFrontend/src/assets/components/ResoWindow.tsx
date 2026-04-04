@@ -28,13 +28,16 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
         const quantity = Number(formData.get("quantity")) as number;
         const fillDate = formData.get("fillDate") as string;
         const insurance = selectedIns as string;
+        const daysSupply = Number(formData.get("daysSupply")) as number;
+
         console.log("insurance", insurance === testScenario.Solution.insurance);
         console.log("quantity", quantity === testScenario.Solution.quantity);
         console.log("fillDate", fillDate );
         //setAnswer({...answerState, quantity: quantity, fillDate: fillDate, insurance: insurance});
             if(quantity === testScenario.Solution.quantity &&
                fillDate === testScenario.Solution.fill_date &&
-               insurance === testScenario.Solution.insurance)
+               insurance === testScenario.Solution.insurance &&
+                daysSupply === testScenario.Solution.days_supply)
             {
              alert("Correct! Rx Accepted");
             } else {
@@ -54,7 +57,9 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
         <div className="resoWindowContainer">
         
             <div className="rejectCode">Rejection Code {testScenario.Rejection.code}</div>
-            <div className="rejectMessage">Rejection Message: {testScenario.Rejection.description}</div>
+            <div className="rejectMessage">Rejection Message: {testScenario.Rejection.description}\
+            
+            </div>
             
             <div className="PTContainer">
                 <p>Name: {testScenario.Patient.name}</p>
@@ -73,23 +78,23 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
                             id="quantity" 
                             name="quantity"
                             placeholder={testScenario.Medication.quantity.toString()}
-                            defaultValue={testScenario.Medication.quantity}
+                            
                             />
                     </label>
                     <label htmlFor="daysSupply">Days Supply: 
                         <input type="number" 
                             id="daysSupply" 
-                            value={90} 
-                            readOnly={true}
+                            placeholder={testScenario.Medication.days_supply.toString()}
+                            name="daysSupply"
                             />
                     </label>
                     <label htmlFor="fillDate">Fill Date:
                         <input 
                             id="fillDate"
                             name="fillDate"
-                            value={testScenario.Medication.fill_date}
+                            placeholder={testScenario.Medication.fill_date}
                             type="text"
-                            readOnly={true}
+                            
                             
                     />
                     </label>
