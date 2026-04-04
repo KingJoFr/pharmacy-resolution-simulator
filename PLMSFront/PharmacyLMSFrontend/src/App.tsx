@@ -3,7 +3,7 @@ import {useState} from 'react';
 import './App.css';
 import Header from './assets/components/Header';
 import ResoWindow from './assets/components/ResoWindow';
-import { TestScenario1 } from './scenarios.tsx';
+import { ScenariosArr } from './scenarios.tsx';
 
 
 /*function rxReducer(state: RxStatus, action: RxAction): RxStatus {
@@ -14,11 +14,12 @@ import { TestScenario1 } from './scenarios.tsx';
 
 function App() {
   //const [inputValue, setInputValue] = useState<string|number>(TestScenario1.Medication.quantity);
-  
+  const [scenarioNumber, setScenarioNumber] = useState<number>(0);
+
   const [formState, setFormState] = useState({
-    quantity: TestScenario1.Medication.quantity,
-    fillDate: TestScenario1.Medication.fill_date,
-    insurance: TestScenario1.Patient.insurance[0].name
+    quantity: ScenariosArr[scenarioNumber].Medication.quantity,
+    fillDate: ScenariosArr[scenarioNumber].Medication.fill_date,
+    insurance: ScenariosArr[scenarioNumber].Patient.insurance[0].name
     
   });
   
@@ -26,10 +27,10 @@ function App() {
 
   return (
     <>
-      <p>description:   {TestScenario1.Description}</p>
+      <p>description:   {ScenariosArr[scenarioNumber].Description}</p>
       <div className="App">
-        <Header />
-        <ResoWindow testScenario={TestScenario1} 
+        <Header scenarioNumber={scenarioNumber} handleScenarioChange={setScenarioNumber} />
+        <ResoWindow testScenario={ScenariosArr[scenarioNumber]} 
                     answerState={formState} 
                     setAnswer={setFormState} 
                     />

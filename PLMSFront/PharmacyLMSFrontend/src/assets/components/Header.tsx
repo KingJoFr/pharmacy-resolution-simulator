@@ -1,9 +1,16 @@
 import './Header.css';
+import {ScenarioListDropDown} from './ScenarioListDropDown.tsx';
+import type {Dispatch, SetStateAction} from 'react';
 
-function Header() {
+interface HeaderProps {
+    scenarioNumber: number;
+    handleScenarioChange: Dispatch<SetStateAction<number>>;
+}
+
+const Header = ({ scenarioNumber, handleScenarioChange }: HeaderProps) => {
     return (
         <ul>
-            <li>module list</li>
+            <li><ScenarioListDropDown scenarioNumber={scenarioNumber} handleScenarioChange={handleScenarioChange}/></li>
             <li>current rx</li>
             <li>tools</li>
         </ul>
