@@ -1,5 +1,5 @@
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import './App.css';
 import Header from './assets/components/Header';
 import ResoWindow from './assets/components/ResoWindow';
@@ -23,12 +23,16 @@ function App() {
     
   });
   
+  
  
 
   return (
     <>
       <p>Description:   {ScenariosArr[scenarioNumber].Description}</p>
-      <p>Notes: This is a work in progress. Only the hint and submit work function. You can change the scenario using the dropdown menu at the top center.</p>
+      <p>Notes: This is a work in progress. 
+        Only the hint and submit work function. 
+        You can change the scenario using the dropdown menu at the top center. 
+        Click the reset button after you change the scenario.</p>
       <div className="App">
         <Header scenarioNumber={scenarioNumber} handleScenarioChange={setScenarioNumber} />
         <ResoWindow testScenario={ScenariosArr[scenarioNumber]} 

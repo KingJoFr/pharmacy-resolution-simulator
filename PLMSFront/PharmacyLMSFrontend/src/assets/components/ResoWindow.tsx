@@ -1,7 +1,7 @@
 import './ResoWindow.css';
 import type { Scenario } from './CustomTypes.tsx';
 import {InsDropDown} from './InsDropDown';
-import { type FormEvent, type Dispatch, useState } from 'react';
+import { type FormEvent, type Dispatch, useState, useRef } from 'react';
 import type { AnswerState } from './CustomTypes.tsx';
 
 interface ResoWindowProps {
@@ -31,6 +31,7 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
         const daysSupply = Number(formData.get("daysSupply")) as number;
 
         console.log("insurance", insurance === testScenario.Solution.insurance);
+        console.log("insurance,", insurance, testScenario.Solution.insurance);
         console.log("quantity", quantity === testScenario.Solution.quantity);
         console.log("fillDate", fillDate );
         //setAnswer({...answerState, quantity: quantity, fillDate: fillDate, insurance: insurance});
@@ -41,7 +42,7 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
             {
              alert("Correct! Rx Accepted");
             } else {
-             alert("Incorrect. Be sure to only change one input at a time and refer to the hint if needed.");
+             alert("Incorrect. Refer to the hint if needed.");
            }
          
          
@@ -52,6 +53,13 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
     const handleHint = () => {
         alert(testScenario.Hint);
     }
+    const formRef = useRef<HTMLFormElement>(null);
+    const handleReset = () => {
+        formRef.current?.reset();
+        setSelectedIns(insOptions[0].name);
+        
+    }
+
     return(
     <>
         <div className="resoWindowContainer">
@@ -73,7 +81,7 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
                 <p>dosage: {testScenario.Medication.dosage}</p>
                 <p>sig: {testScenario.Medication.sig}</p>
                 <p>provider: {testScenario.Medication.provider}</p>
-                <form onSubmit={handleForm}>
+                <form ref={formRef} onSubmit={handleForm}>
                     <label htmlFor="quantity">Quantity:
                         <input type="number" 
                             id="quantity" 
@@ -109,6 +117,7 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
                         <button onClick={handleHint}>hint</button>
                         <button>put on hold</button>
                         <button>switch to cash</button>
+                        <button onClick={handleReset}>reset</button>
                     </div>
                     
             </div>

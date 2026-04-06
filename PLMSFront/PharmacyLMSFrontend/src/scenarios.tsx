@@ -4,7 +4,7 @@ export const ScenariosArr =
   [
     {
       "ID": "scenario_1",
-      "Description": "bad_days_supply",
+      "Description": "bad days supply level 1",
       "Patient": {
           "name" : "John Doe",
           "birthdate": "01-01-1980",
@@ -33,7 +33,7 @@ export const ScenariosArr =
       },
       "Rejection": {
           "code" : "76",
-          "description" : "Invalid Days Supply/Plan Limitations Exceeded"
+          "description" : "Invalid Days Supply/Plan Limitations Exceeded. Limit is 34 days."
       },
       "Solution": {
           "quantity": 30,
@@ -46,7 +46,7 @@ export const ScenariosArr =
     //Scenario 2
     {
       "ID": "scenario_2",
-      "Description": "refill_too_soon",
+      "Description": "refill too soon level 1",
       "Patient": {
           "name" : "John Doe",
           "birthdate": "01-01-1980",
@@ -81,6 +81,53 @@ export const ScenariosArr =
       },
       "Hint": "Try changing the fill date."
     },
+    //scenario 3
+    {
+      "ID": "scenario_3",
+      "Description": "bad days supply level 2",
+      "Patient": {
+          "name" : "Jane Doe",
+          "birthdate": "01-01-1995",
+          "gender": "Female",
+          "insurance" : 
+              [
+                {
+                  "name": "BTX",
+                  "policy_number": "123456789"
+                },
+                {
+                  "name": "GRX",
+                  "policy_number": "113456789"
+                },
+                {
+                  "name": "ESI",
+                  "policy_number" : "1223456789"
+                }
+              ]
+          
+      },
+      "Medication": {
+          "name": "Sumatriptan",
+          "dosage": "25mg",
+          "sig": "Take 1 tablet by mouth at onset of migraine. May repeat in 2 hours if needed. Do not exceed 2 tablets in 24 hours.",
+          "quantity" : 30,
+          "days_supply": 30,
+          "fill_date": "01-01-2026",
+          "provider": "Dr. Strange"
+      },
+      "Rejection": {
+          "code" : "76",
+          "description" : "Invalid Days Supply. Dose exceeds 0.2 units per day."
+      },
+      "Solution": {
+          "quantity": 6,
+          "fill_date": "01-01-2026",
+          "days_supply": 30,
+          "insurance": "BTX"
+      },
+      "Hint": "Try changing the quantity to 30."
+    }
+
 
 
   ];

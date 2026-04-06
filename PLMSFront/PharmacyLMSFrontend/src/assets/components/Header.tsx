@@ -5,6 +5,7 @@ import type {Dispatch, SetStateAction} from 'react';
 interface HeaderProps {
     scenarioNumber: number;
     handleScenarioChange: Dispatch<SetStateAction<number>>;
+    
 }
 
 const Header = ({ scenarioNumber, handleScenarioChange }: HeaderProps) => {
