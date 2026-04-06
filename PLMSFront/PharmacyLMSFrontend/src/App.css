@@ -6,14 +6,19 @@
   border-radius:  var(--global-radius);
 
 }
+div{
+  border-radius: var(--global-div-radius)
+}
 
 .App{
   display: grid;
   grid-template-rows: 1fr 4fr;
   margin: 0;
   place-items: center;
-  height: 90vh;
-  border: 1px solid red;
-  background-color: silver;
+  min-height: 90vh;
+  min-width: fit-content;
+  
+  background:linear-gradient(to right, #deebff, #cce0ff, #b3d1ff);
   border-radius: 10px;
+  padding: 1rem;
 }

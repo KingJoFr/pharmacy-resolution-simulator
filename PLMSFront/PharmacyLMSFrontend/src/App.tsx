@@ -27,7 +27,8 @@ function App() {
 
   return (
     <>
-      <p>description:   {ScenariosArr[scenarioNumber].Description}</p>
+      <p>Description:   {ScenariosArr[scenarioNumber].Description}</p>
+      <p>Notes: This is a work in progress. Only the hint and submit work function. You can change the scenario using the dropdown menu at the top center.</p>
       <div className="App">
         <Header scenarioNumber={scenarioNumber} handleScenarioChange={setScenarioNumber} />
         <ResoWindow testScenario={ScenariosArr[scenarioNumber]} 

@@ -19,16 +19,18 @@ export const InsDropDown = ({ options,selectedIns, handleInsuranceChange }: Drop
     
 
     return (
-        <select value={selectedIns}
-                onChange={(event: ChangeEvent<HTMLSelectElement>) => handleInsuranceChange(event.target.value)}
-        >
-                {options.map((ins: Ins) => (
-                    <option key={ins.policy_number} value={ins.name}>
-                        {ins.name} {ins.policy_number}
-                    </option>
-                ))}
+        <label htmlFor="select" >Insurance:
+            <select id ="select" style={{"width": "50%"}}value={selectedIns}
+                    onChange={(event: ChangeEvent<HTMLSelectElement>) => handleInsuranceChange(event.target.value)}
+            >
+                    {options.map((ins: Ins) => (
+                        <option key={ins.policy_number} value={ins.name}>
+                            {ins.name} {ins.policy_number}
+                        </option>
+                    ))}
 
-        </select>
+            </select>
+        </label>
     );
 }
 

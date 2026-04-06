@@ -56,12 +56,11 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
     <>
         <div className="resoWindowContainer">
         
-            <div className="rejectCode">Rejection Code {testScenario.Rejection.code}</div>
-            <div className="rejectMessage">Rejection Message: {testScenario.Rejection.description}\
-            
-            </div>
+            <div className="rejectCode"><strong>Rejection Code</strong>: {testScenario.Rejection.code}</div>
+            <div className="rejectMessage"><strong>Rejection Message</strong>: {testScenario.Rejection.description}</div>
             
             <div className="PTContainer">
+                <h2>Patient Information</h2>
                 <p>Name: {testScenario.Patient.name}</p>
                 <p>Birthdate: {testScenario.Patient.birthdate}</p>
                 <p>Gender: {testScenario.Patient.gender}</p>
@@ -69,9 +68,11 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
                 
             </div>
             <div className="submissionContainer">
+                <h2>Prescription Information</h2>
                 <p>medication: {testScenario.Medication.name}</p>
                 <p>dosage: {testScenario.Medication.dosage}</p>
                 <p>sig: {testScenario.Medication.sig}</p>
+                <p>provider: {testScenario.Medication.provider}</p>
                 <form onSubmit={handleForm}>
                     <label htmlFor="quantity">Quantity:
                         <input type="number" 
@@ -99,14 +100,17 @@ const ResoWindow = ({testScenario }: ResoWindowProps) => {
                     />
                     </label>
                     <InsDropDown options={insOptions} selectedIns={selectedIns} handleInsuranceChange={setSelectedIns} />
-                    <div className="buttonContainer">
+                    <div className="formButtonContainer">
                         <button type="submit" >submit</button>
+                       
+                    </div>
+                </form>
+                 <div className="buttonContainer">
                         <button onClick={handleHint}>hint</button>
                         <button>put on hold</button>
                         <button>switch to cash</button>
                     </div>
-                </form>
-                    <p>provider: {testScenario.Medication.provider}</p>
+                    
             </div>
         
             
