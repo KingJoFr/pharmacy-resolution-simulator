@@ -49,7 +49,10 @@ export type Scenario = {
     fill_date: string;
     days_supply: number;
     insurance: string;
+    gender?: string |null;
    
   },
   Hint: string;
+  AdditionalInfo?: string;
+  GenderTest?: boolean;
 };

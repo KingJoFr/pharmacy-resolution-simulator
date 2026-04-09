@@ -91,7 +91,7 @@ function App() {
             </select>
           </label>
         </F10Modal>
-        <ResoWindow testScenario={ScenariosArr[scenarioNumber]} 
+        <ResoWindow currentScenario={ScenariosArr[scenarioNumber]} 
                     answerState={formState} 
                     setAnswer={setFormState} 
         />
