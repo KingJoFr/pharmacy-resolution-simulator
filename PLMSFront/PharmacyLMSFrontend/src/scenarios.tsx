@@ -171,10 +171,62 @@ export const ScenariosArr =
           "fill_date": "01-01-2026",
           "days_supply": 30,
           "insurance": "BTX",
-          "gender": "Female"
+          "gender": "female"
       },
       "Hint": "Try changing the gender",
       "GenderTest": true,
       "AdditionalInfo": "We usually verify with the person picking up the medication if the patient is male or female. Then let them know that the insurance has them labelled incorrectly, and to call their insurance to get it fixed."
+    },
+    //scenario 5
+    {
+      "ID": "scenario_5",
+      "Description": "M/I Prior Authorization Type",
+      "Patient": {
+          "name" : "Jannie Doe",
+          "birthdate": "01-01-2024",
+          "gender": "female",
+          "insurance" : 
+              [
+                {
+                  "name": "MTX",
+                  "policy_number": "123456789"
+                },
+                {
+                  "name": "GRX",
+                  "policy_number": "113456789"
+                },
+                {
+                  "name": "ESI",
+                  "policy_number" : "1223456789"
+                }
+              ]
+          
+      },
+      "Medication": {
+          "name": "fer-in-sol",
+          "dosage": "15mg/1ml",
+          "sig": "Give 1ml by mouth once daily",
+          "quantity" : 50,
+          "days_supply": 30,
+          "fill_date": "01-01-2026",
+          "provider": "Dr. Strangelove"
+      },
+      "Rejection": {
+          "code" : "EU/EV",
+          "description" : "M/I Prior Authorization Type Code Reject EU/EV vitamin and minerals claims required field int-auth 461 eu=8 and 462 ev=826 not covered for members over 21 years old; submit scc13 if patient has been affected by emergency/ disaster.;"
+      },
+      "Solution": {
+          "quantity": 50,
+          "fill_date": "01-01-2026",
+          "days_supply": 30,
+          "insurance": "MTX",
+          "gender": "female",
+          "diagnosisCode": null,
+          "intAuth": "8",
+          "priorAuthorizationNumber": 826,
+          "thirdPartyDaysSupply": null
+      },
+      "Hint": "You have to input the code in the f10 window form.",
+      "AdditionalInfo": "This is a medicaid claim.  Most other insurance will not cover vitamins and minerals or other otc medications."
     }
   ]

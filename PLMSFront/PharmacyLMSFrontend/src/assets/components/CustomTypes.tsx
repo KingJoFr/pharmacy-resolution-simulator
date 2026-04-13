@@ -50,6 +50,10 @@ export type Scenario = {
     days_supply: number;
     insurance: string;
     gender?: string |null;
+    diagnosisCode?: string | null;
+    intAuth?: string | null;
+    priorAuthorizationNumber? : string | null;
+    thirdPartyDaysSupply?: number | null;
    
   },
   Hint: string;

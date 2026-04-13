@@ -22,3 +22,35 @@ div{
   border-radius: 10px;
   padding: 1rem;
 }
+
+/*modal styles*/
+#f10Form{
+    display: grid;
+    padding: 1rem;
+    background-color: 'gray';
+    padding: '20px';
+    border-radius: '8px';
+    box-shadow: '0 4px 6px rgba(0, 0, 0, 0.1)';
+     
+  
+  
+}
+#f10Fieldset{
+    border: 1px solid orange;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+
+#f10Form label{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+}
+#f10Form label input, #f10Form label select{
+  
+    width: 300px
+    
+}
+     

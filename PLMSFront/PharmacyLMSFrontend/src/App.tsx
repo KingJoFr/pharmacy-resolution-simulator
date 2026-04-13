@@ -4,7 +4,9 @@ import './App.css';
 import Header from './assets/components/Header';
 import ResoWindow from './assets/components/ResoWindow';
 import { ScenariosArr } from './scenarios.tsx';
-import F10Modal from './assets/components/F10Modal.tsx';
+import FButtonModal from './assets/components/FButtonModal.tsx';
+import F10WindowForm from './assets/components/F10WindowForm.tsx';
+import type { ChangeEvent, FormEvent, FormEventHandler } from 'react';
 
 
 
@@ -46,6 +48,7 @@ function App() {
    useAllKeysDown(['Control', 'F10'], () => {
      setIsOpen(true);
    });
+  
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
 
   const [formState, setFormState] = useState({
@@ -54,6 +57,15 @@ function App() {
     insurance: ScenariosArr[scenarioNumber].Patient.insurance[0].name
     
   });
+  function handleF10FormSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const f10Data: { [key: string]: string } = {};
+    formData.forEach((value, key) => {
+      f10Data[key] = value.toString();
+    });
+    
+  }
   
   
  
@@ -68,33 +80,12 @@ function App() {
         ctlr + F10 opens the F10 form</p>
       <div className="App">
         <Header scenarioNumber={scenarioNumber} handleScenarioChange={setScenarioNumber} />
-        <F10Modal isOpen={isOpen} onClose={() => {setIsOpen(false)}} >
-          <h2>F10 form</h2>
-          <label htmlFor="Diagnosis Code">
-            Diagnosis Code:<input 
-                                id="Diagnosis Code" 
-                                name="diagnosisCode"/>
-          </label>
-          <label htmlFor="priorAuthorizationNumber">
-            Prior Authorization Number:<input 
-                                          id="priorAuthorizationNumber" 
-                                          name="priorAuthorizationNumber"/>
-          </label>
-          <label htmlFor="priorAuthorizationNumber">
-            Other Coverage Code:
-            <select 
-                  id="priorAuthorizationNumber" 
-                  name="priorAuthorizationNumber">
-                     <option value="01">01 no other coverage</option>
-                     <option value="03">03 Other coverage exists- this claim not covered</option>
-                     <option value="08">08 Claim is billing for copay</option> 
-            </select>
-          </label>
-        </F10Modal>
-        <ResoWindow currentScenario={ScenariosArr[scenarioNumber]} 
-                    answerState={formState} 
-                    setAnswer={setFormState} 
-        />
+        <FButtonModal modalForm="f10Form"isOpen={isOpen} onClose={() => {setIsOpen(false)}} onSubmit={handleF10FormSubmit}> 
+          <F10WindowForm onSubmit={handleF10FormSubmit} />
+        
+        </FButtonModal>
+        <ResoWindow currentScenario={ScenariosArr[scenarioNumber]} setIsOpen={setIsOpen} answerState={formState} setAnswer={setFormState} />
+        
       </div>
     </>
   )

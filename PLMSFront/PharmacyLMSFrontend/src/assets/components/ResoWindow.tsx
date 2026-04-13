@@ -1,22 +1,35 @@
 import './ResoWindow.css';
 import type { Scenario } from './CustomTypes.tsx';
 import {InsDropDown} from './InsDropDown';
-import { type FormEvent, type Dispatch, useState, useRef } from 'react';
+import { type FormEvent, type Dispatch,type ChangeEvent, useState, useRef } from 'react';
 import type { AnswerState } from './CustomTypes.tsx';
 
 interface ResoWindowProps {
+    setIsOpen: Dispatch<React.SetStateAction<boolean>>;
     currentScenario: Scenario;
     answerState: AnswerState;
     setAnswer: Dispatch<React.SetStateAction<AnswerState>>;
     
     
 }
+/*interface DropdownProps {
+    options: Ins[];
+    selectedIns: string;
+    handleInsuranceChange: (value: string) => void;
+}*/
+type Ins = {
+    name: string;
+    policy_number: string;
+}
 
-
-const ResoWindow = ({currentScenario }: ResoWindowProps) => {
+const ResoWindow = ({currentScenario, setIsOpen }: ResoWindowProps) => {
     //const [days_supplyValue, setdays_supplyValue] = useState<number>(currentScenario.Medication.days_supply);
     const insOptions = currentScenario.Patient.insurance;
     const [selectedIns, setSelectedIns] = useState<string>(insOptions[0].name);
+
+    function openF10(){
+        setIsOpen(true);
+    }
     
 
     const handleForm = (event: FormEvent<HTMLFormElement>) => {
@@ -28,7 +41,7 @@ const ResoWindow = ({currentScenario }: ResoWindowProps) => {
         }
 
         let i = 0;
-        let results: boolean[] = [];
+        const results: boolean[] = [];
         formData.forEach((value,key) => {
             console.log("current scenario solution", currentScenario.Solution[key as keyof typeof currentScenario.Solution]);
             console.log("value", value);
@@ -37,7 +50,11 @@ const ResoWindow = ({currentScenario }: ResoWindowProps) => {
             i++;
             }
         )
-        console.log("results", results);
+        if(results.includes(false)){
+            alert("Incorrect. Refer to the hint if needed.");
+        }else{
+            alert(`Correct! Rx Accepted\n\n` + (currentScenario.AdditionalInfo ? ` Additional Info: ${currentScenario.AdditionalInfo}` : ''));
+        }
     }
         
         //setAnswer({...answerState, quantity: quantity, fill_date: fill_date, insurance: insurance});
@@ -86,7 +103,7 @@ const ResoWindow = ({currentScenario }: ResoWindowProps) => {
                 <p>sig: {currentScenario.Medication.sig}</p>
                 <p>provider: {currentScenario.Medication.provider}</p>
                 {/*form*/}
-                <form ref={formRef} onSubmit={handleForm}>
+                <form id="submissionForm"ref={formRef} onSubmit={handleForm}>
                     <label htmlFor="quantity">Quantity:
                         <input type="number" 
                             id="quantity" 
@@ -118,6 +135,7 @@ const ResoWindow = ({currentScenario }: ResoWindowProps) => {
                                  type="radio"
                                  id="male"
                                  name="gender"
+                                 value="male"
                                  defaultChecked
                             />
                         <label htmlFor="male">Male </label>
@@ -125,13 +143,28 @@ const ResoWindow = ({currentScenario }: ResoWindowProps) => {
                                 type="radio"
                                 id="female"
                                 name="gender"
+                                value="female"
                             />
                         <label htmlFor="female">Female </label> 
                     </div>
                     }
-                    <InsDropDown options={insOptions} selectedIns={selectedIns} handleInsuranceChange={setSelectedIns} />
+
+                    
+                    <label htmlFor="select" >Insurance:
+                                <select id ="select" name="insurance" style={{"width": "50%"}}value={selectedIns}
+                                    
+                                >
+                                        {currentScenario.Patient.insurance.map((ins: Ins) => (
+                                            <option key={ins.policy_number} value={ins.name}>
+                                                {ins.name} {ins.policy_number}
+                                            </option>
+                                        ))}
+                    
+                                </select>
+                            </label>
                     <div className="formButtonContainer">
                         <button type="submit" >submit</button>
+                        <button type="button" onClick={openF10}>F10 Window</button>
                        
                     </div>
                 </form>
