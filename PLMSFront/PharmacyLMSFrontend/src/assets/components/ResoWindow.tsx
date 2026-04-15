@@ -1,14 +1,16 @@
 import './ResoWindow.css';
 import type { Scenario } from './CustomTypes.tsx';
-import {InsDropDown} from './InsDropDown';
-import { type FormEvent, type Dispatch,type ChangeEvent, useState, useRef } from 'react';
-import type { AnswerState } from './CustomTypes.tsx';
+
+import { type FormEvent, type Dispatch, useState, useRef } from 'react';
+//import type { AnswerState } from './CustomTypes.tsx';
 
 interface ResoWindowProps {
     setIsOpen: Dispatch<React.SetStateAction<boolean>>;
     currentScenario: Scenario;
-    answerState: AnswerState;
-    setAnswer: Dispatch<React.SetStateAction<AnswerState>>;
+    handleForm: (event: FormEvent<HTMLFormElement>) => void;
+    resetResults: () => void;
+   /* answerState: AnswerState;
+    setAnswer: Dispatch<React.SetStateAction<AnswerState>>;*/
     
     
 }
@@ -22,42 +24,26 @@ type Ins = {
     policy_number: string;
 }
 
-const ResoWindow = ({currentScenario, setIsOpen }: ResoWindowProps) => {
-    //const [days_supplyValue, setdays_supplyValue] = useState<number>(currentScenario.Medication.days_supply);
+const ResoWindow = ({currentScenario, setIsOpen, handleForm, resetResults}: ResoWindowProps) => {
+    //const [daysSupplyValue, setdaysSupplyValue] = useState<number>(currentScenario.Medication.daysSupply);
     const insOptions = currentScenario.Patient.insurance;
     const [selectedIns, setSelectedIns] = useState<string>(insOptions[0].name);
+    const formRef = useRef<HTMLFormElement>(null);
+    const handleReset = () => {
+        formRef.current?.reset();
+        setSelectedIns(insOptions[0].name);
+        resetResults();
+        
+    }
 
     function openF10(){
         setIsOpen(true);
     }
     
 
-    const handleForm = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
 
-        for (const [key, value] of formData.entries()) {
-            console.log("formdata",key , value);
-        }
-
-        let i = 0;
-        const results: boolean[] = [];
-        formData.forEach((value,key) => {
-            console.log("current scenario solution", currentScenario.Solution[key as keyof typeof currentScenario.Solution]);
-            console.log("value", value);
-            console.log("key", key);
-            results[i] = value  === currentScenario.Solution[key as keyof typeof currentScenario.Solution]?.toString();
-            i++;
-            }
-        )
-        if(results.includes(false)){
-            alert("Incorrect. Refer to the hint if needed.");
-        }else{
-            alert(`Correct! Rx Accepted\n\n` + (currentScenario.AdditionalInfo ? ` Additional Info: ${currentScenario.AdditionalInfo}` : ''));
-        }
-    }
         
-        //setAnswer({...answerState, quantity: quantity, fill_date: fill_date, insurance: insurance});
+       // setAnswer({...answerState, quantity: quantity, fill_date: fill_date, insurance: insurance});
 
 
          
@@ -74,13 +60,9 @@ const ResoWindow = ({currentScenario, setIsOpen }: ResoWindowProps) => {
     const handleHint = () => {
         alert(currentScenario.Hint);
     }
-    const formRef = useRef<HTMLFormElement>(null);
-    const handleReset = () => {
-        formRef.current?.reset();
-        setSelectedIns(insOptions[0].name);
-        
-    }
 
+    //reset logic
+    
     return(
     <>
         <div className="resoWindowContainer">
@@ -112,18 +94,18 @@ const ResoWindow = ({currentScenario, setIsOpen }: ResoWindowProps) => {
                             
                             />
                     </label>
-                    <label htmlFor="days_supply">Days Supply: 
+                    <label htmlFor="daysSupply">Days Supply: 
                         <input type="number" 
-                            id="days_supply" 
-                            placeholder={currentScenario.Medication.days_supply.toString()}
-                            name="days_supply"
+                            id="daysSupply" 
+                            placeholder={currentScenario.Medication.daysSupply.toString()}
+                            name="daysSupply"
                             />
                     </label>
-                    <label htmlFor="fill_date">Fill Date:
+                    <label htmlFor="fillDate">Fill Date:
                         <input 
-                            id="fill_date"
-                            name="fill_date"
-                            placeholder={currentScenario.Medication.fill_date}
+                            id="fillDate"
+                            name="fillDate"
+                            placeholder={currentScenario.Medication.fillDate}
                             type="text"
                             
                             

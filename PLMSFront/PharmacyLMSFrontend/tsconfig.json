@@ -2,6 +2,9 @@
   "files": [],
   "compilerOptions": {
     "resolveJsonModule": true,
+    "moduleResolution": "bundler", //
+    "lib": ["es2022", "DOM"],//to use Object.hasOwn and other ES2022 features
+    "target": "es2022"
   },
     
   

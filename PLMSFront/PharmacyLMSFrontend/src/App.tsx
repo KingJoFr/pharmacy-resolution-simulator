@@ -6,7 +6,8 @@ import ResoWindow from './assets/components/ResoWindow';
 import { ScenariosArr } from './scenarios.tsx';
 import FButtonModal from './assets/components/FButtonModal.tsx';
 import F10WindowForm from './assets/components/F10WindowForm.tsx';
-import type { ChangeEvent, FormEvent, FormEventHandler } from 'react';
+import type {  FormEvent } from 'react';
+import type { Scenario } from './assets/components/CustomTypes.tsx';
 
 
 
@@ -43,7 +44,7 @@ function useAllKeysDown(targetKeys: string[], callback: () => void) {
    
 
 function App() {
-  //const [inputValue, setInputValue] = useState<string|number>(TestScenario1.Medication.quantity);
+  
   const [isOpen, setIsOpen] = useState<boolean>(false);
    useAllKeysDown(['Control', 'F10'], () => {
      setIsOpen(true);
@@ -51,23 +52,90 @@ function App() {
   
   const [scenarioNumber, setScenarioNumber] = useState<number>(0);
 
-  const [formState, setFormState] = useState({
+  /*const [formState, setFormState] = useState({
     quantity: ScenariosArr[scenarioNumber].Medication.quantity,
-    fillDate: ScenariosArr[scenarioNumber].Medication.fill_date,
+    fillDate: ScenariosArr[scenarioNumber].Medication.fillDate,
     insurance: ScenariosArr[scenarioNumber].Patient.insurance[0].name
     
-  });
+  });*/
+
+  //const [mainFormResults, setMainFormResults] = useState<boolean[]>([]);
+  //const [f10FormResults, setF10FormResults] = useState<boolean[]>([]);
+  const mainFormResultsRef = useRef<boolean[]>([]);
+  const f10FormResultsRef = useRef<boolean[]>([]);
+
+  //reset logic
+  function resetResults(){
+  mainFormResultsRef.current = [];
+  f10FormResultsRef.current = []  ;
+
+  }
+
+
+  function handleMainForm (event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        
+        formData.forEach((value,key) => {
+          const result: boolean = value.toString() == ScenariosArr[scenarioNumber].Solution[key as keyof Scenario["Solution"]];
+          
+          mainFormResultsRef.current.push(result);
+          
+        
+        }  )
+        
+        
+        console.log("requires f10?", Object.hasOwn(ScenariosArr[scenarioNumber].Solution,"intAuth"));
+
+
+        if(Object.hasOwn(ScenariosArr[scenarioNumber].Solution,"intAuth")){ //if has intauth in scenario then f10 form is needed
+          console.log("Scenario has int auth")
+          if(mainFormResultsRef.current.length > 0 && f10FormResultsRef.current.length > 0){ //check if both forms have been submitted  
+              
+            if(mainFormResultsRef.current.includes(false) && f10FormResultsRef.current.includes(false)){
+                alert("Incorrect. Refer to the hint if needed.");
+            }else{
+                alert(`Correct! Rx Accepted\n\n` + (ScenariosArr[scenarioNumber].AdditionalInfo ? ` Additional Info: ${ScenariosArr[scenarioNumber].AdditionalInfo}` : ''))
+                console.log("main form results with f10 required", mainFormResultsRef.current);
+            }
+          }else{
+            alert("Please submit the F10 form to complete the scenario.");
+          }
+          
+        }else if(mainFormResultsRef.current.length > 0){ //if no f10 required just check main form results
+            console.log("main form results with no f10 required", mainFormResultsRef.current);
+            if(mainFormResultsRef.current.includes(false)){
+                alert("Incorrect. Refer to the hint if needed.");
+            }
+            else{
+
+                alert(`Correct! Rx Accepted\n\n` + (ScenariosArr[scenarioNumber].AdditionalInfo ? ` Additional Info: ${ScenariosArr[scenarioNumber].AdditionalInfo}` : ''));
+                
+           }
+        
+          
+  }
+  resetResults();
+}
+    
+    
+
   function handleF10FormSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const f10Data: { [key: string]: string } = {};
     formData.forEach((value, key) => {
-      f10Data[key] = value.toString();
-    });
     
-  }
+      f10FormResultsRef.current.push(value.toString() === ScenariosArr[scenarioNumber].Solution[key as keyof Scenario["Solution"]]?.toString());
+      
+    });
+
+    console.log("f10 form results", f10FormResultsRef.current);
+    alert("F10 form submitted. Please complete and submit the main form.");
+    setIsOpen(false);
+
+    
   
-  
+}
  
 
   return (
@@ -80,11 +148,15 @@ function App() {
         ctlr + F10 opens the F10 form</p>
       <div className="App">
         <Header scenarioNumber={scenarioNumber} handleScenarioChange={setScenarioNumber} />
-        <FButtonModal modalForm="f10Form"isOpen={isOpen} onClose={() => {setIsOpen(false)}} onSubmit={handleF10FormSubmit}> 
-          <F10WindowForm onSubmit={handleF10FormSubmit} />
+        <FButtonModal modalForm="f10Form"isOpen={isOpen} onClose={() => {setIsOpen(false)}}> 
+          <F10WindowForm onSubmit={handleF10FormSubmit}/>
         
         </FButtonModal>
-        <ResoWindow currentScenario={ScenariosArr[scenarioNumber]} setIsOpen={setIsOpen} answerState={formState} setAnswer={setFormState} />
+        <ResoWindow currentScenario={ScenariosArr[scenarioNumber]} 
+                    setIsOpen={setIsOpen} 
+                    handleForm={handleMainForm}
+                    resetResults = {resetResults}
+                    />
         
       </div>
     </>

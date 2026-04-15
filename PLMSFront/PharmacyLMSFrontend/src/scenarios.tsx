@@ -27,8 +27,8 @@ export const ScenariosArr =
           "dosage": "10mg",
           "sig": "Take 1 tablet by mouth once daily",
           "quantity" : 90,
-          "days_supply": 90,
-          "fill_date": "06-01-2024",
+          "daysSupply": 90,
+          "fillDate": "06-01-2024",
           "provider": "Dr. Dolittle"
       },
       "Rejection": {
@@ -37,8 +37,8 @@ export const ScenariosArr =
       },
       "Solution": {
           "quantity": 30,
-          "fill_date": "06-01-2024",
-          "days_supply": 30,
+          "fillDate": "06-01-2024",
+          "daysSupply": 30,
           "insurance": "UHC"
       },
       "Hint": "Try changing the quantity to 30.",
@@ -66,8 +66,8 @@ export const ScenariosArr =
           "dosage": "10mg",
           "sig": "Take 1 tablet by mouth once daily",
           "quantity" : 30,
-          "days_supply": 30,
-          "fill_date": "01-20-2026",
+          "daysSupply": 30,
+          "fillDate": "01-20-2026",
           "provider": "Dr. House"
       },
       "Rejection": {
@@ -76,8 +76,8 @@ export const ScenariosArr =
       },
       "Solution": {
           "quantity": 30,
-          "fill_date": "01-26-2026",
-          "days_supply": 30,
+          "fillDate": "01-26-2026",
+          "daysSupply": 30,
           "insurance": "UHC"
       },
       "Hint": "Try changing the fill date."
@@ -112,8 +112,8 @@ export const ScenariosArr =
           "dosage": "25mg",
           "sig": "Take 1 tablet by mouth at onset of migraine. May repeat in 2 hours if needed. Do not exceed 2 tablets in 24 hours.",
           "quantity" : 30,
-          "days_supply": 30,
-          "fill_date": "01-01-2026",
+          "daysSupply": 30,
+          "fillDate": "01-01-2026",
           "provider": "Dr. Strange"
       },
       "Rejection": {
@@ -122,8 +122,8 @@ export const ScenariosArr =
       },
       "Solution": {
           "quantity": 6,
-          "fill_date": "01-01-2026",
-          "days_supply": 30,
+          "fillDate": "01-01-2026",
+          "daysSupply": 30,
           "insurance": "BTX"
       },
       "Hint": "Try multiplying 30 days by 0.2 units per day to find the maximum quantity allowed."
@@ -158,8 +158,8 @@ export const ScenariosArr =
           "dosage": "25mg",
           "sig": "Take 1 tablet by mouth at onset of migraine. May repeat in 2 hours if needed. Do not exceed 2 tablets in 24 hours.",
           "quantity" : 30,
-          "days_supply": 30,
-          "fill_date": "01-01-2026",
+          "daysSupply": 30,
+          "fillDate": "01-01-2026",
           "provider": "Dr. Strange"
       },
       "Rejection": {
@@ -168,8 +168,8 @@ export const ScenariosArr =
       },
       "Solution": {
           "quantity": 6,
-          "fill_date": "01-01-2026",
-          "days_supply": 30,
+          "fillDate": "01-01-2026",
+          "daysSupply": 30,
           "insurance": "BTX",
           "gender": "female"
       },
@@ -207,8 +207,8 @@ export const ScenariosArr =
           "dosage": "15mg/1ml",
           "sig": "Give 1ml by mouth once daily",
           "quantity" : 50,
-          "days_supply": 30,
-          "fill_date": "01-01-2026",
+          "daysSupply": 30,
+          "fillDate": "01-01-2026",
           "provider": "Dr. Strangelove"
       },
       "Rejection": {
@@ -217,14 +217,15 @@ export const ScenariosArr =
       },
       "Solution": {
           "quantity": 50,
-          "fill_date": "01-01-2026",
-          "days_supply": 30,
+          "fillDate": "01-01-2026",
+          "daysSupply": 30,
           "insurance": "MTX",
           "gender": "female",
-          "diagnosisCode": null,
+          "diagnosisCode": "",
           "intAuth": "8",
           "priorAuthorizationNumber": 826,
-          "thirdPartyDaysSupply": null
+          "thirdPartyDaysSupply": "",
+          "otherCoverageCode": ""
       },
       "Hint": "You have to input the code in the f10 window form.",
       "AdditionalInfo": "This is a medicaid claim.  Most other insurance will not cover vitamins and minerals or other otc medications."

@@ -36,8 +36,8 @@ export type Scenario = {
     dosage: string;
     sig: string;
     quantity: number;
-    days_supply: number;
-    fill_date: string;
+    daysSupply: number;
+    fillDate: string;
     provider: string;
   },
   Rejection: {
@@ -46,14 +46,16 @@ export type Scenario = {
 },
   Solution: {
     quantity: number;
-    fill_date: string;
-    days_supply: number;
+    fillDate: string;
+    daysSupply: number;
     insurance: string;
-    gender?: string |null;
-    diagnosisCode?: string | null;
-    intAuth?: string | null;
-    priorAuthorizationNumber? : string | null;
-    thirdPartyDaysSupply?: number | null;
+    gender?: string;
+    //f10 form fields below
+    diagnosisCode?: string;
+    intAuth?: string;
+    priorAuthorizationNumber? : number;
+    thirdPartyDaysSupply?: string | number;
+    otherCoverageCode?: string;
    
   },
   Hint: string;

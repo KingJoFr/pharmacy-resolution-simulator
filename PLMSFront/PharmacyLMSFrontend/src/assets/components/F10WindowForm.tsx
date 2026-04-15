@@ -48,6 +48,7 @@ const F10WindowForm = ({ onSubmit }: F10WindowFormProps) => {
                 <select 
                       id="otherCoverageCode" 
                       name="otherCoverageCode">
+                        <option value="">--blank--</option>
                         <option value="01">01 no other coverage</option>
                         <option value="03">03 Other coverage exists- this claim not covered</option>
                         <option value="08">08 Claim is billing for copay</option> 
