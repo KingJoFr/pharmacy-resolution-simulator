@@ -53,7 +53,7 @@ export type Scenario = {
     //f10 form fields below
     diagnosisCode?: string;
     intAuth?: string;
-    priorAuthorizationNumber? : number;
+    priorAuthorizationNumber? : number|string;
     thirdPartyDaysSupply?: string | number;
     otherCoverageCode?: string;
    

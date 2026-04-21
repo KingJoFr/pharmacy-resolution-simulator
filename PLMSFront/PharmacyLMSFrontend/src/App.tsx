@@ -85,25 +85,25 @@ function App() {
         }  )
         
         
-        console.log("requires f10?", Object.hasOwn(ScenariosArr[scenarioNumber].Solution,"intAuth"));
+        
 
 
         if(Object.hasOwn(ScenariosArr[scenarioNumber].Solution,"intAuth")){ //if has intauth in scenario then f10 form is needed
-          console.log("Scenario has int auth")
+          
           if(mainFormResultsRef.current.length > 0 && f10FormResultsRef.current.length > 0){ //check if both forms have been submitted  
               
             if(mainFormResultsRef.current.includes(false) && f10FormResultsRef.current.includes(false)){
                 alert("Incorrect. Refer to the hint if needed.");
             }else{
                 alert(`Correct! Rx Accepted\n\n` + (ScenariosArr[scenarioNumber].AdditionalInfo ? ` Additional Info: ${ScenariosArr[scenarioNumber].AdditionalInfo}` : ''))
-                console.log("main form results with f10 required", mainFormResultsRef.current);
+                
             }
           }else{
             alert("Please submit the F10 form to complete the scenario.");
           }
           
         }else if(mainFormResultsRef.current.length > 0){ //if no f10 required just check main form results
-            console.log("main form results with no f10 required", mainFormResultsRef.current);
+          
             if(mainFormResultsRef.current.includes(false)){
                 alert("Incorrect. Refer to the hint if needed.");
             }
@@ -129,7 +129,7 @@ function App() {
       
     });
 
-    console.log("f10 form results", f10FormResultsRef.current);
+    
     alert("F10 form submitted. Please complete and submit the main form.");
     setIsOpen(false);
 
