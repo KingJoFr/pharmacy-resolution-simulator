@@ -59,8 +59,15 @@ div{
 .notesContainer{
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
+ 
+  
+  width: 100%;
 } 
+@media(max-width: 600px){
+  .notes{
+    min-width: 95%;
+  }
+}
 .notes{
   text-align: left;
   max-width: 50%;
