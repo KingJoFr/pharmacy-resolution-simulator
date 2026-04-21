@@ -180,7 +180,7 @@ export const ScenariosArr =
     //scenario 5
     {
       "ID": "scenario_5",
-      "Description": "M/I Prior Authorization Type",
+      "Description": "bad days supply",
       "Patient": {
           "name" : "Jannie Doe",
           "birthdate": "01-01-2024",
@@ -229,5 +229,57 @@ export const ScenariosArr =
       },
       "Hint": "You have to input the code in the f10 window form.",
       "AdditionalInfo": "This is a medicaid claim.  Most other insurance will not cover vitamins and minerals or other otc medications."
+    },
+    //scenario 6
+     {
+      "ID": "scenario_6",
+      "Description": "bad days supply level 3",
+      "Patient": {
+          "name" : "Johnny Doe",
+          "birthdate": "01-01-2026",
+          "gender": "male",
+          "insurance" : 
+              [
+                {
+                  "name": "MTX",
+                  "policy_number": "123456789"
+                },
+                {
+                  "name": "GRX",
+                  "policy_number": "113456789"
+                },
+                {
+                  "name": "ESI",
+                  "policy_number" : "1223456789"
+                }
+              ]
+          
+      },
+      "Medication": {
+          "name": "fluticasone",
+          "dosage": "50mcg",
+          "sig": "1 spray in each nostril once daily",
+          "quantity" : 16,
+          "daysSupply": 60,
+          "fillDate": "01-01-2026",
+          "provider": "Dr. Phil"
+      },
+      "Rejection": {
+          "code" : "76",
+          "description" : "Invalid Days Supply/Plan Limitations Exceeded. Limit is 34 days."
+      },
+      "Solution": {
+          "quantity": 16,
+          "fillDate": "01-01-2026",
+          "daysSupply": 60,
+          "insurance": "MTX",
+          "diagnosisCode": "",
+          "intAuth": "",
+          "priorAuthorizationNumber": "",
+          "thirdPartyDaysSupply": "34",
+          "otherCoverageCode": ""
+      },
+      "Hint": "The days supply field is correct. The medication is indivisible so you will have to use the f10 form and enter the maximum days supply allowed into the third party days supply field.",
+      "AdditionalInfo": "This is common with inhalers, creams, eyedrops/eardrops, and other medications that come in a fixed quantity that doesn't align with the days supply allowed by the insurance."
     }
   ]

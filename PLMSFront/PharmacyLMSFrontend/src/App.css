@@ -20,10 +20,12 @@ div{
   
   background:linear-gradient(to right, #deebff, #cce0ff, #b3d1ff);
   border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1rem;
 }
 
-/*modal styles*/
+/*F10Form styles*/
 #f10Form{
     display: grid;
     padding: 1rem;
@@ -31,12 +33,11 @@ div{
     padding: '20px';
     border-radius: '8px';
     box-shadow: '0 4px 6px rgba(0, 0, 0, 0.1)';
-     
-  
   
 }
+
 #f10Fieldset{
-    border: 1px solid orange;
+    border: 1px solid rgb(255, 206, 115);
     border-radius: 8px;
     padding: 1rem;
 }
