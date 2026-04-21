@@ -10,11 +10,14 @@ interface HeaderProps {
 
 const Header = ({ scenarioNumber, handleScenarioChange }: HeaderProps) => {
     return (
-        <ul>
-            <li><ScenarioListDropDown scenarioNumber={scenarioNumber} handleScenarioChange={handleScenarioChange}/></li>
-            <li>current rx</li>
-            <li>tools</li>
-        </ul>
+        <header>
+            <h2 className="Title">Resolution Simulator</h2>
+            <ul>
+                <li><ScenarioListDropDown scenarioNumber={scenarioNumber} handleScenarioChange={handleScenarioChange}/></li>
+                <li>current rx</li>
+                <li>tools</li>
+            </ul>
+        </header>
     );
 }
 

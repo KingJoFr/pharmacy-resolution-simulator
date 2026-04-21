@@ -8,7 +8,7 @@ import FButtonModal from './assets/components/FButtonModal.tsx';
 import F10WindowForm from './assets/components/F10WindowForm.tsx';
 import type {  FormEvent } from 'react';
 import type { Scenario } from './assets/components/CustomTypes.tsx';
-
+import Notes from './assets/components/Notes.tsx';
 
 
 function useAllKeysDown(targetKeys: string[], callback: () => void) {
@@ -140,14 +140,10 @@ function App() {
 
   return (
     <>
-      <p>Description:   {ScenariosArr[scenarioNumber].Description}</p>
-      <p>Notes: This is a work in progress. 
-        putonhold and switchtocash buttons don't function. 
-        You can change the scenario using the dropdown menu at the top center. 
-        Click the reset button after you change the scenario.
-        ctlr + F10 opens the F10 form</p>
+      <Notes/>
       <div className="App">
         <Header scenarioNumber={scenarioNumber} handleScenarioChange={setScenarioNumber} />
+        
         <FButtonModal modalForm="f10Form"isOpen={isOpen} onClose={() => {setIsOpen(false)}}> 
           <F10WindowForm onSubmit={handleF10FormSubmit}/>
         

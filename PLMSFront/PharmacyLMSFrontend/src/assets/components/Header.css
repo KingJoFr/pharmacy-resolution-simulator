@@ -8,3 +8,12 @@ ul {
 li{
     padding: 0 1rem;
 }
+
+header{
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    align-items: center;
+    justify-items: center;
+    
+  
+}
