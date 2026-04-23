@@ -145,7 +145,7 @@ function App() {
     const formData = new FormData(event.currentTarget)
     const solution = ScenariosArr[scenarioNumber].Solution.switchToCashReason;
     const additionalInfo = ScenariosArr[scenarioNumber].AdditionalInfo;
-    const choice: FormDataEntryValue = formData.get("switchToCashReason");
+    const choice: FormDataEntryValue = formData.get("switchToCashReason")!;
     console.log("choice", choice)
     console.log("solution", solution)
     if(choice !== null){
