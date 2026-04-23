@@ -39,6 +39,7 @@ export type Scenario = {
     daysSupply: number;
     fillDate: string;
     provider: string;
+    price?: string;
   },
   Rejection: {
     code: string;

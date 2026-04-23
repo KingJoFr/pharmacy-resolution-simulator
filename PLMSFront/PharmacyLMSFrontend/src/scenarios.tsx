@@ -356,13 +356,14 @@ export const ScenariosArr =
           
       },
       "Medication": {
-          "name": "Ceterizine",
+          "name": "Cetirizine",
           "dosage": "10 mg",
           "sig": "Take one tablet by mouth once daily",
           "quantity" : 30,
           "daysSupply": 30,
           "fillDate": "01-01-2026",
-          "provider": "Dr. Grey"
+          "provider": "Dr. Grey",
+          "price" : "$4.00"
       },
       "Rejection": {
           "code" : "70",
@@ -376,7 +377,7 @@ export const ScenariosArr =
           "switchToCashReason": "medicationNotCovered"
           
       },
-      "Hint": "No changes are necessary",
-      "AdditionalInfo": "This is an issue with the communication system/network.  You may have to resubmit several times in the same day or even wait till the next day."
+      "Hint": "You have to switch to cash",
+      "AdditionalInfo": "When we see ndc not covered whether we switch to cash depends on a number of variables, but generally if the price isn't too high we switch it to cash and fill it."
     }
   ]
