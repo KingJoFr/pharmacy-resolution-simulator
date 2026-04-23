@@ -281,5 +281,102 @@ export const ScenariosArr =
       },
       "Hint": "The days supply field is correct. The medication is indivisible so you will have to use the f10 form and enter the maximum days supply allowed into the third party days supply field.",
       "AdditionalInfo": "This is common with inhalers, creams, eyedrops/eardrops, and other medications that come in a fixed quantity that doesn't align with the days supply allowed by the insurance."
+    },
+    //scenario 7
+     {
+      "ID": "scenario_7",
+      "Description": "Host Processing Error",
+      "Patient": {
+          "name" : "John Doe",
+          "birthdate": "01-01-1980",
+          "gender": "male",
+          "insurance" : 
+              [
+                {
+                  "name": "MTX",
+                  "policy_number": "123456789"
+                },
+                {
+                  "name": "GRX",
+                  "policy_number": "113456789"
+                },
+                {
+                  "name": "ESI",
+                  "policy_number" : "1223456789"
+                }
+              ]
+          
+      },
+      "Medication": {
+          "name": "fluticasone",
+          "dosage": "50mcg",
+          "sig": "1 spray in each nostril once daily",
+          "quantity" : 16,
+          "daysSupply": 60,
+          "fillDate": "01-01-2026",
+          "provider": "Dr. Adams "
+      },
+      "Rejection": {
+          "code" : "99",
+          "description" : "Host Processing Error/Timeout/System Unavailable/Transaction Rejected at Switch or Intermediary"
+      },
+      "Solution": {
+          "quantity": "",
+          "fillDate": "",
+          "daysSupply": "",
+          "insurance": "MTX",
+          
+      },
+      "Hint": "No changes are necessary",
+      "AdditionalInfo": "This is an issue with the communication system/network.  You may have to resubmit several times in the same day or even wait till the next day."
+    },
+    //scenario 8
+    {
+      "ID": "scenario_8",
+      "Description": "NDC not covered",
+      "Patient": {
+          "name" : "Jane Doe",
+          "birthdate": "01-01-1980",
+          "gender": "female",
+          "insurance" : 
+              [
+                {
+                  "name": "BTX",
+                  "policy_number": "123456789"
+                },
+                {
+                  "name": "GRX",
+                  "policy_number": "113456789"
+                },
+                {
+                  "name": "ESI",
+                  "policy_number" : "1223456789"
+                }
+              ]
+          
+      },
+      "Medication": {
+          "name": "Ceterizine",
+          "dosage": "10 mg",
+          "sig": "Take one tablet by mouth once daily",
+          "quantity" : 30,
+          "daysSupply": 30,
+          "fillDate": "01-01-2026",
+          "provider": "Dr. Grey"
+      },
+      "Rejection": {
+          "code" : "70",
+          "description" : "NDC not covered/OTCs not covered"
+      },
+      "Solution": {
+          "quantity": "",
+          "fillDate": "",
+          "daysSupply": "",
+          "insurance": "BTX",
+          "switchToCashReason": "medicationNotCovered"
+          
+      },
+      "Hint": "No changes are necessary",
+      "AdditionalInfo": "This is an issue with the communication system/network.  You may have to resubmit several times in the same day or even wait till the next day."
     }
   ]

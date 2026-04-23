@@ -45,9 +45,9 @@ export type Scenario = {
     description: string;
 },
   Solution: {
-    quantity: number;
+    quantity: number| string;
     fillDate: string;
-    daysSupply: number;
+    daysSupply: number|string;
     insurance: string;
     gender?: string;
     //f10 form fields below
@@ -56,6 +56,8 @@ export type Scenario = {
     priorAuthorizationNumber? : number|string;
     thirdPartyDaysSupply?: string | number;
     otherCoverageCode?: string;
+    //switchtocasWindow
+    switchToCashReason?: string;
    
   },
   Hint: string;

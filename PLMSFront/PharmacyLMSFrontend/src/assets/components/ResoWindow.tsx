@@ -6,6 +6,7 @@ import { type FormEvent, type Dispatch, useState, useRef } from 'react';
 
 interface ResoWindowProps {
     setIsOpen: Dispatch<React.SetStateAction<boolean>>;
+    setOpenSwitchToCash: Dispatch<React.SetStateAction<boolean>>;
     currentScenario: Scenario;
     handleForm: (event: FormEvent<HTMLFormElement>) => void;
     resetResults: () => void;
@@ -24,7 +25,7 @@ type Ins = {
     policy_number: string;
 }
 
-const ResoWindow = ({currentScenario, setIsOpen, handleForm, resetResults}: ResoWindowProps) => {
+const ResoWindow = ({currentScenario, setIsOpen, handleForm, resetResults,setOpenSwitchToCash}: ResoWindowProps) => {
     //const [daysSupplyValue, setdaysSupplyValue] = useState<number>(currentScenario.Medication.daysSupply);
     const insOptions = currentScenario.Patient.insurance;
     const [selectedIns, setSelectedIns] = useState<string>(insOptions[0].name);
@@ -38,6 +39,9 @@ const ResoWindow = ({currentScenario, setIsOpen, handleForm, resetResults}: Reso
 
     function openF10(){
         setIsOpen(true);
+    }
+    function openSwitchToCash(){
+        setOpenSwitchToCash(true);
     }
     
 
@@ -153,7 +157,7 @@ const ResoWindow = ({currentScenario, setIsOpen, handleForm, resetResults}: Reso
                  <div className="buttonContainer">
                         <button onClick={handleHint}>hint</button>
                         <button>put on hold</button>
-                        <button>switch to cash</button>
+                        <button onClick={openSwitchToCash}>switch to cash</button>
                         <button onClick={handleReset}>reset</button>
                     </div>
                     

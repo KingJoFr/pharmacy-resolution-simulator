@@ -9,7 +9,7 @@ import F10WindowForm from './assets/components/F10WindowForm.tsx';
 import type {  FormEvent } from 'react';
 import type { Scenario } from './assets/components/CustomTypes.tsx';
 import Notes from './assets/components/Notes.tsx';
-
+import SwitchToCashWindow from './assets/components/SwitchToCashWindow.tsx'
 
 function useAllKeysDown(targetKeys: string[], callback: () => void) {
   const keysPressed = useRef<Set<string>>(new Set());
@@ -44,9 +44,11 @@ function useAllKeysDown(targetKeys: string[], callback: () => void) {
    
 
 function App() {
-  
+  //state variables
   const [isOpen, setIsOpen] = useState<boolean>(false);
-   useAllKeysDown(['Control', 'F10'], () => {
+  const [openSwitchToCash, setOpenSwitchToCash] = useState<boolean>(false);
+
+  useAllKeysDown(['Control', 'F10'], () => {
      setIsOpen(true);
    });
   
@@ -63,6 +65,8 @@ function App() {
   //const [f10FormResults, setF10FormResults] = useState<boolean[]>([]);
   const mainFormResultsRef = useRef<boolean[]>([]);
   const f10FormResultsRef = useRef<boolean[]>([]);
+  const switchToCashResultsRef = useRef<boolean>(false);
+
 
   //reset logic
   function resetResults(){
@@ -136,6 +140,27 @@ function App() {
     
   
 }
+  function handleSwitchToCash(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget)
+    const solution = ScenariosArr[scenarioNumber].Solution.switchToCashReason;
+    const additionalInfo = ScenariosArr[scenarioNumber].AdditionalInfo;
+    const choice: FormDataEntryValue = formData.get("switchToCashReason");
+    console.log("choice", choice)
+    console.log("solution", solution)
+    if(choice !== null){
+      switchToCashResultsRef.current = (choice === solution);
+      console.log("switchToCashResults", switchToCashResultsRef.current)
+    }
+    if(switchToCashResultsRef.current){
+       alert(`Correct! Rx Accepted\n\n` + (additionalInfo ? ` Additional Info: ${additionalInfo}` : ''))
+       setOpenSwitchToCash(false);
+    }else{
+       alert("Incorrect. Refer to hint if needed.")
+       setOpenSwitchToCash(false);
+    }
+
+  }
  
 
   return (
@@ -148,10 +173,16 @@ function App() {
           <F10WindowForm onSubmit={handleF10FormSubmit}/>
         
         </FButtonModal>
+        <FButtonModal modalForm="switchToCash" 
+                      isOpen={openSwitchToCash} 
+                      onClose={()=> {setOpenSwitchToCash(false)}}>
+          <SwitchToCashWindow onSubmit={handleSwitchToCash}/>
+        </FButtonModal>
         <ResoWindow currentScenario={ScenariosArr[scenarioNumber]} 
                     setIsOpen={setIsOpen} 
                     handleForm={handleMainForm}
                     resetResults = {resetResults}
+                    setOpenSwitchToCash={setOpenSwitchToCash}
                     />
         
       </div>
